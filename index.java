@@ -24,7 +24,7 @@ float infection_radius_maximum = 50;
 float default_infection_chance = 0.2;
 float infection_chance_maximum = 1;
 float chance_of_death = 0.1;
-float chance_of_losing_immunity = 0.05;
+float chance_of_losing_immunity = 0.0001;
 
 boolean show_infection_radius = true;
 boolean socialDistancingDefault = false;
@@ -214,9 +214,9 @@ void draw() {
     text("Key", 1200, 1325);
     text("Dead", 1200, 1350);
     text("Infected", 1200, 1375);
-    text("Linear Regression", 1200, 1400);
-    text("Quadratic Regression", 1200, 1425);
-    text("Exponential Regression", 1200, 1450);
+    text("Model 1", 1200, 1400);
+    text("Model 2", 1200, 1425);
+    text("Model 3", 1200, 1450);
     fill(arr);
     ellipse(1180, 1367, 10, 10);
     fill(dea);
@@ -304,7 +304,7 @@ void draw() {
   infectionRadius.update();
   infection_radius = infectionRadius.get();
 
-  graphPredictions.update();
+  // graphPredictions.update();
 
   for(int i = 0; i < communities.length; i++){
     infectionChances[i].update();
@@ -501,7 +501,7 @@ class Community {
     // the difference vector between the 2 particles
     PVector diff = PVector.sub(p1.pos, p2.pos);
     // scale the vector so the attraction force is the same every time
-    diff.normalize(); diff.div(12);
+    diff.normalize(); diff.div(5);
     // give particle j a little push towards particle i
     p2.applyForce(diff);
     // reverses the force
@@ -821,9 +821,6 @@ class Particle {
           state = 3;
           community.dead_particles.add(this);
         }
-        else if (random(1) < chance_of_losing_immunity) {
-			  	state = 0;
-		  	}
         else {
           state = 2;
         }
@@ -835,6 +832,10 @@ class Particle {
       // } handling recovery
     }
     else if (state == 2) {
+
+			if (random(1) < chance_of_losing_immunity) {
+				state = 0;
+			}
       fill(0, 0, 255);
     }
     else if (state == 3) {
@@ -986,7 +987,7 @@ void projectionLinear(int x_offset, int y_offset) {
 	}
 	float[] res = linearRegression(x, lastPoints);
 	float m = res[0], b = res[1];
-	stroke(0, 100, 100);
+	stroke(lin);
 	strokeWeight(1);
 	float xloc = 200;
 	float yloc = m * xloc;
@@ -1005,7 +1006,7 @@ void projectionExponential(int x_offset, int y_offset) {
 	float xstart = 0;
 	float ydiff = A * pow(r, xstart);
 	for (float xloc = xstart; xloc < 200; xloc ++) {
-		stroke(0, 255, 255);
+		stroke(exp);
 		float yloc = A * pow(r, xloc);
 		ellipse(x_offset + xloc, -yloc + y_offset + ydiff, 1, 1);
 	}
@@ -1019,7 +1020,7 @@ void projectionQuad(int x_offset, int y_offset) {
 	float[] res = quadRegression(x, lastPoints);
 	float a = res[0], b = res[1], c = res[2];
 	strokeWeight(1);
-	stroke(255, 100, 0);
+	stroke(qua);
 	float xstart = 0;
 	for (float xloc = xstart; xloc < 200; xloc ++) {
 		float yloc = a * xloc * xloc + b * xloc;
@@ -1086,7 +1087,7 @@ class Slider {
     value = (currentPos-leftBound) * maximum/(rightBound - leftBound);
 
     fill(0,0,0);
-    text(thing_controlled+": "+value,leftBound + 20,sliderTop - 10);
+    text(thing_controlled+": "+round(value * 100) / 100,leftBound + 20,sliderTop - 10);
   }
 }
 
@@ -1131,6 +1132,6 @@ class VerticalSlider extends Slider{
     
     value = (currentPos-leftBound) * maximum/(rightBound - leftBound);
     fill(0,0,0);
-    text(thing_controlled+": "+value, topBound, leftBound - 10);
+    text(thing_controlled+": "+round(value * 100) / 100, topBound, leftBound - 10);
   }
 }
