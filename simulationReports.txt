@@ -1,0 +1,64 @@
+assumptions:
+masks cut down chance of infection by about 65%
+the infection radius of covid-19 is about 1.8 meters, or around 4 body lengths.
+
+tests & results:
+
+average transmission rate:
+	peak infected: 295
+	deaths: 37
+	looking at second wave of infections with very small chance of losing immunity:
+		total deaths: 70
+		average infected at any time: 24
+		kept going for a very long time, almost double the number of deaths at the initial viral outbreak
+
+	with quarantine:
+		peak infected: 50
+		average infected: 25
+		death: 20
+		
+	with quarantine social distancing:
+		peak infected: 3
+		deaths: 0
+			
+
+	without shopping:
+		peak infected: 290
+		deaths: 30
+
+	quarantine when 10% of the population is infected, social distance when 30% infected:
+		peak infected: 98
+		average infected: 42
+		deaths: 14
+	
+	social distance when 10% of the population is infected, quarantine when 30% infected:
+		peak infected: 101
+		average infected: 45
+		deaths: 14
+
+	two communities quarantines and social distances while one doesn't:
+		peak infected: 104
+		deaths: 11
+	one communities distance, quarantine, no shoppers while the other two don't:
+		peak infection: 187
+		deaths: 17
+
+	
+what happens if people start wearing masks:
+	(infection chances reduced by 65%)
+	peak infection: 259
+	deaths: 27
+	the complexity, or growth rate is the same as not wearing masks
+
+what happens when people follow all guidelines most of the time but have 100% infection rate:
+	peak infected: 89
+	deaths: 18
+	
+
+what happens when the chance of losing immunity is raised by very little:
+	the graph keeps going for a much longer time, killing almost 70% of the population before stopping
+
+social distance and quarantine when more than 10% is infected, but life them off when less than that.
+	observation: lots of peaks, the cycle only dies down when more people have recovered and are immunue
+	peak infected: 85
+	death: 35
